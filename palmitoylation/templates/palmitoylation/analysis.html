@@ -1,0 +1,10 @@
+{% extends 'palmitoylation/base.html' %}
+{% block title %}基础分析 · PalmAtlas{% endblock %}
+{% block content %}
+<section class="hero analysis-hero"><p class="eyebrow">DESCRIPTIVE ANALYSIS</p><h1>让数据呈现<em>结构</em></h1><p>对筛选结果进行计数，快速查看物种、基因、证据类型和研究方法的分布。</p></section>
+{% include 'palmitoylation/filters.html' %}
+<section class="metrics two"><div><strong>{{ site_count }}</strong><span>匹配位点</span></div><div><strong>{{ evidence_count }}</strong><span>匹配证据</span></div></section>
+{% if demo_count %}<p class="notice">当前统计含 {{ demo_count }} 条虚构演示证据。正式分析请切换为“仅正式数据”。</p>{% endif %}
+<p class="method-note">图中的长度相对本图最高计数缩放，不代表比例。物种和基因按位点计数，证据类型和方法按证据计数；未进行显著性或富集分析。</p>
+<section class="charts">{% for title, rows in charts %}<article class="panel"><h2>{{ title }}</h2>{% for row in rows %}<div class="chart-row"><div class="chart-label"><span>{{ row.label }}</span><strong>{{ row.count }}</strong></div><div class="track"><div class="bar" style="width:{{ row.width }}%"></div></div></div>{% empty %}<p class="empty">没有可分析的数据</p>{% endfor %}</article>{% endfor %}</section>
+{% endblock %}

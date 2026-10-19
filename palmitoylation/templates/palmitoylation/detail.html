@@ -1,0 +1,10 @@
+{% extends 'palmitoylation/base.html' %}
+{% block title %}{{ site.protein.gene }} C{{ site.position }} · PalmAtlas{% endblock %}
+{% block content %}
+<a class="back-link" href="{% url 'browse' %}">← 返回检索</a>
+<section class="detail-hero"><p class="eyebrow">MODIFICATION SITE</p><h1>{{ site.protein.gene }} <em>C{{ site.position }}</em></h1><p>{{ site.protein.name }}</p></section>
+<section class="detail-grid">
+  <article class="panel"><h2>蛋白与位点</h2><dl><dt>蛋白编号</dt><dd>{{ site.protein.accession }}</dd><dt>物种</dt><dd>{{ site.protein.organism }}</dd><dt>修饰位点</dt><dd>C{{ site.position }}</dd><dt>序列窗口</dt><dd><code>{{ sequence_window|default:'未提供蛋白序列' }}</code></dd></dl>{% if site.protein.sequence %}<details><summary>查看完整蛋白序列</summary><pre>{{ site.protein.sequence }}</pre></details>{% endif %}</article>
+  <article class="panel"><h2>研究证据</h2>{% for item in site.evidence.all %}<div class="evidence-card"><span class="pill">{{ item.get_kind_display }}</span>{% if item.is_demo %}<span class="demo-label">虚构演示数据</span>{% endif %}<dl><dt>研究方法</dt><dd>{{ item.method|default:'未填写' }}</dd><dt>组织 / 细胞</dt><dd>{{ item.tissue|default:'未填写' }}</dd><dt>文献</dt><dd>{% if item.pmid %}<a href="https://pubmed.ncbi.nlm.nih.gov/{{ item.pmid }}/" target="_blank" rel="noopener noreferrer">PMID {{ item.pmid }} ↗</a>{% else %}未填写{% endif %}</dd><dt>备注</dt><dd>{{ item.notes|default:'无'|linebreaksbr }}</dd></dl></div>{% empty %}<p>该位点尚无证据记录。</p>{% endfor %}</article>
+</section>
+{% endblock %}

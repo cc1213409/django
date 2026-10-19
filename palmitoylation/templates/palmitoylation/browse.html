@@ -1,0 +1,19 @@
+{% extends 'palmitoylation/base.html' %}
+{% block content %}
+<section class="hero">
+  <p class="eyebrow">PROTEIN MODIFICATION DATABASE</p>
+  <h1>看见蛋白的<br><em>棕榈酰化位点</em></h1>
+  <p>汇集蛋白、半胱氨酸位点及研究证据，用清晰的检索和统计梳理数据。</p>
+</section>
+<section class="metrics" aria-label="当前结果摘要"><div><strong>{{ total }}</strong><span>匹配位点</span></div><div><strong>{{ proteins }}</strong><span>相关蛋白</span></div><div><strong>{{ demo_count }}</strong><span>演示证据</span></div></section>
+{% if demo_count %}<p class="notice">当前筛选包含虚构演示数据。正式研究请切换为“仅正式数据”。</p>{% endif %}
+{% include 'palmitoylation/filters.html' %}
+<section class="panel">
+  <div class="panel-heading"><div><p class="eyebrow">DATABASE</p><h2>位点记录</h2></div><a class="button subtle" href="{% url 'export_csv' %}?{{ query_string }}">导出当前结果 CSV</a></div>
+  <div class="table-wrap"><table><thead><tr><th>基因 / 蛋白</th><th>蛋白编号</th><th>物种</th><th>位点</th><th>匹配证据</th></tr></thead><tbody>
+  {% for site in page %}<tr><td><a class="table-link" href="{% url 'detail' site.pk %}">{{ site.protein.gene }}</a><small>{{ site.protein.name }}</small></td><td>{{ site.protein.accession }}</td><td>{{ site.protein.organism }}</td><td><span class="site-tag">C{{ site.position }}</span></td><td>{% for evidence in site.visible_evidence %}<span class="pill">{{ evidence.get_kind_display }}{% if evidence.is_demo %} · 演示{% endif %}</span>{% endfor %}</td></tr>
+  {% empty %}<tr><td class="empty" colspan="5">暂无符合条件的位点。可清除筛选，或通过管理后台 / CSV 导入数据。</td></tr>{% endfor %}
+  </tbody></table></div>
+  {% if page.paginator.num_pages > 1 %}<div class="pagination">{% if page.has_previous %}<a href="?{{ query_string }}&page={{ page.previous_page_number }}">上一页</a>{% endif %}<span>{{ page.number }} / {{ page.paginator.num_pages }}</span>{% if page.has_next %}<a href="?{{ query_string }}&page={{ page.next_page_number }}">下一页</a>{% endif %}</div>{% endif %}
+</section>
+{% endblock %}

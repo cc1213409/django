@@ -1,0 +1,7 @@
+<form method="get" class="filters" aria-label="筛选记录">
+  <label>关键词<input name="q" value="{{ filters.q|default:'' }}" placeholder="基因、蛋白或备注"></label>
+  <label>物种<select name="organism"><option value="">全部物种</option>{% for organism in organisms %}<option value="{{ organism }}" {% if filters.organism == organism %}selected{% endif %}>{{ organism }}</option>{% endfor %}</select></label>
+  <label>证据<select name="kind"><option value="">全部证据</option>{% for value, label in kinds %}<option value="{{ value }}" {% if filters.kind == value %}selected{% endif %}>{{ label }}</option>{% endfor %}</select></label>
+  <label>数据范围<select name="scope"><option value="">包含演示数据</option><option value="real" {% if filters.scope == 'real' %}selected{% endif %}>仅正式数据</option></select></label>
+  <div class="filter-actions"><button type="submit">应用筛选</button><a href="{{ request.path }}">清除</a></div>
+</form>

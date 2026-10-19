@@ -1,0 +1,19 @@
+{% load static %}<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}PalmAtlas · 棕榈酰化数据平台{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'palmitoylation/style.css' %}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="{% url 'browse' %}"><span class="brand-mark">P</span><span>PalmAtlas<small>棕榈酰化数据平台</small></span></a>
+      <nav aria-label="主导航"><a href="{% url 'browse' %}">数据检索</a><a href="{% url 'analysis' %}">基础分析</a><a href="{% url 'admin:index' %}">数据管理</a></nav>
+    </div>
+  </header>
+  <main class="container">{% block content %}{% endblock %}</main>
+  <footer>© PalmAtlas · 描述性统计仅供数据探索；演示数据不可作为研究证据。</footer>
+</body>
+</html>

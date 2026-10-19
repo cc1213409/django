@@ -1,0 +1,4 @@
+accession,gene,name,organism,sequence,position,kind,method,tissue,pmid,notes
+DEMO-001,DEMOA,虚构示例蛋白 A,示例物种 A,AAAACAAAA,5,experimental,ABE,示例细胞,,仅用于页面演示
+DEMO-002,DEMOB,虚构示例蛋白 B,示例物种 B,AACAAAAAA,3,predicted,计算预测,,,仅用于页面演示
+DEMO-003,DEMOC,虚构示例蛋白 C,示例物种 A,AAAAAACAA,7,experimental,Acyl-RAC,示例组织,,仅用于页面演示

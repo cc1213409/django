@@ -1,0 +1,26 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "PalmAtlas: 启动网站",
+      "type": "shell",
+      "command": "bash run.sh",
+      "options": {"cwd": "${workspaceFolder}"},
+      "problemMatcher": []
+    },
+    {
+      "label": "PalmAtlas: 运行测试",
+      "type": "shell",
+      "command": ".venv/bin/python manage.py test palmitoylation",
+      "options": {"cwd": "${workspaceFolder}"},
+      "problemMatcher": []
+    },
+    {
+      "label": "PalmAtlas: 数据库迁移",
+      "type": "shell",
+      "command": ".venv/bin/python manage.py migrate --noinput",
+      "options": {"cwd": "${workspaceFolder}"},
+      "problemMatcher": []
+    }
+  ]
+}
